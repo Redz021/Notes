@@ -1,0 +1,23 @@
+.hammer {
+    display: none;
+}
+
+.globe-trigger:checked {
+    &~ {
+        .globe {
+            pointer-events: none;
+        }
+        .hammer {
+            display: inline-block;
+        }
+    }
+}
+
+.hammer-trigger:checked {
+    &~ {
+        .hammer {
+            transform: scale(0);
+            opacity: 0;
+        }
+    }
+}

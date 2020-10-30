@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流&防抖</title>
+</head>
+
+<body>
+    <button id="test">test</button>
+    <script>
+        //防抖
+        function debounce(func, delay) {
+            let timer = null;
+            return function() {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(func, delay);
+            }
+        }
+        //节流
+        function throttle(func, delay) {
+            let canRun = true;
+            return function() {
+                if (!canRun) {
+                    return false;
+                }
+                canRun = false;
+                setTimeout(() => {
+                    func();
+                    canRun = true;
+                }, delay);
+            }
+        }
+
+        function a() {
+            console.log("clicked");
+        }
+        document.querySelector("#test").onclick = throttle(a, 1000);
+    </script>
+</body>
+
+</html>
