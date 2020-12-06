@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+        </ul>
+        <input type="text" v-model="msg">
+        <span v-once>{{msg}}</span>
+
+        <div v-html="btn" v-on:click="switchOff"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("todo-item", {
+            props: ["todo"],
+            template: "<li>{{todo.text}}</li>"
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'test',
+                groceryList: [{
+                    id: 0,
+                    text: "蔬菜"
+                }, {
+                    id: 1,
+                    text: "奶酪"
+                }, {
+                    id: 2,
+                    text: "随便其他什么人吃的东西"
+                }],
+                btn: "<button>test</button>",
+                isDisabled: false,
+                switchOff: function() {
+                    this.isDisabled = !this.isDisabled;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

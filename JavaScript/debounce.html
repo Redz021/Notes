@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>debounce</title>
+</head>
+
+<body>
+    <button id="test">debounce</button>
+    <script>
+        function debounce(callback, delay) {
+            var timer = null;
+            return function() {
+                clearTimeout(timer);
+                timer = setTimeout(callback, delay)
+            }
+        }
+
+        document.getElementById("test").onclick = debounce(function() {
+            console.log("clicked");
+        }, 500);
+    </script>
+</body>
+
+</html>

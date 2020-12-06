@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数柯里化</title>
+</head>
+
+<body>
+    <script>
+        // fn(2)(3)(4) == 24;
+        function fn(a, b, c) {
+            return a * b * c;
+        }
+
+        function fn(a) {
+            return function(b) {
+                return function(c) {
+                    return a * b * c;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
