@@ -24,6 +24,20 @@
         document.getElementById("test").onclick = throttle(function() {
             console.log("clicked");
         }, 500);
+
+        function throttle(callback, duration) {
+            var lastTime = new Date().getTime();
+            return function() {
+                var now = new Date().getTime();
+                if (now - lastTime > duration) {
+                    callback();
+                    lastTime = now;
+                }
+            }
+        }
+        document.querySelector("#test").onclick = throttle(function() {
+            console.log("clicked");
+        }, 1000);
     </script>
 </body>
 

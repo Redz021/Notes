@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>border 1px</title>
+    <style>
+        .test {
+            border: 1px solid black;
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test"></div>
+    <script>
+        window.onload = function() {
+            var dpr = window.devicePixelRatio;
+            var scale = 1 / dpr;
+            var width = document.documentElement.clientWidth;
+            var metaNode = document.querySelector('meta[name="viewport"]');
+            metaNode.setAttribute('content', 'width=device-width,initial-scale=' + scale + ',user-scalable=no');
+            var htmlNode = document.querySelector('html');
+            htmlNode.style.fontSize = width * dpr + 'px';
+        }
+    </script>
+</body>
+
+</html>

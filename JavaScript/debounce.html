@@ -21,6 +21,17 @@
         document.getElementById("test").onclick = debounce(function() {
             console.log("clicked");
         }, 500);
+
+        function debounce(callback, delay) {
+            let t = null;
+            return function() {
+                clearTimeout(t);
+                t = setTimeout(callback, delay);
+            }
+        }
+        document.querySelector("#test").onclick = debounce(function() {
+            alert("clicked");
+        }, 500);
     </script>
 </body>
 

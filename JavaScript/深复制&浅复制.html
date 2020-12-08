@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy</title>
+</head>
+
+<body>
+    <script>
+        var obj = {
+            a: 1,
+            b: 2,
+            c: {
+                d: 10,
+                e: 20
+            }
+        };
+        var obj1 = {};
+        //浅复制
+        for (let key in obj) {
+            obj1[key] = obj[key];
+        }
+        //或者
+        Object.assign(obj1, obj);
+        ///////
+        //深复制
+        obj1 = JSON.parse(JSON.stringify(obj));
+        /*以上无法复制get set方法或者不可遍历属性*/
+        function cloneObject(target, source) {
+            var names = Object.getOwnPropertyNames(source);
+            for (let i = 0; i < names.length; i++) {
+                var desc = Object.getOwnPropertyDescriptor(source, names[i]);
+                if (typeof desc.value === "object" && desc.value !== null) {
+                    var obj;
+                    if (Array.isArray(desc.value)) {
+                        obj = [];
+                    } else {
+                        obj = {};
+                    }
+                    Object.defineProperty(target, names[i], {
+                        configurable: desc.configurable,
+                        enumerable: desc.enumerable,
+                        value: obj,
+                        writable: desc.writable
+                    });
+                    cloneObject(obj, desc.value);
+                } else {
+                    Object.defineProperty(target, names[i], desc);
+                }
+            }
+        }
+
+        cloneObject(obj1, obj);
+    </script>
+</body>
+
+</html>

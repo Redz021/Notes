@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+    <script>
+        function getImage(src) {
+            return new Promise(function(resolve, reject) {
+                let image = new Image();
+                image.onload = function() {
+                    resolve(image);
+                }
+                image.onerror = function() {
+                    reject("Unable to load image");
+                }
+                image.src = src;
+            });
+        }
+        //两种写法:
+        //1. .then(执行成功，执行失败);
+        //2. .then(执行成功).catch(执行失败);(最常用)
+        getImage("../image/test.jpg").then(function(image) {
+            alert(image);
+        }, function(error) {
+            alert(error);
+        });
+        //链式加载:
+        getImage("../image/test.jpg").then(function(image) {
+                console.log(image);
+                return getImage("../image/test2.jpg");
+            }).then(function(image) {
+                console.log(image);
+            })
+            /////////
+        Promise.all([getImage("../image/test.jpg"), getImage("../image/test2.jpg")]).then(function(list) {
+            console.log(list);
+        }).catch(function(list) {
+            console.log(list);
+        });
+    </script>
+</body>
+
+</html>
