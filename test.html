@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var data = [
+            [{
+                name: "111",
+                num: 1
+            }, {
+                name: "111",
+                num: 1
+            }, {
+                name: "111",
+                num: 1
+            }],
+            [{
+                name: "222",
+                num: 2
+            }, {
+                name: "222",
+                num: 2
+            }, {
+                name: "222",
+                num: 2
+            }],
+            [{
+                name: "333",
+                num: 3
+            }, {
+                name: "333",
+                num: 3
+            }, {
+                name: "333",
+                num: 3
+            }]
+        ]
+        let res = {};
+        for (let key in data[0][0]) {
+            res[key] = [];
+        }
+        console.log(res);
+        data.forEach((item, index, arr) => {
+            item.forEach((item1, index1, arr1) => {
+                for (let key in item1) {
+                    res[key].push(item1[key]);
+                }
+            })
+        })
+        console.log(res);
+
+        //name = [["111","111","111"],["111","111","111"],["111","111","111"]];
+        //num = [[1,1,1],[1,1,1],[1,1,1]];
+    </script>
+</body>
+
+</html>
