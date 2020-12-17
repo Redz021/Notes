@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <span>十进制：</span>
+        <input type="text" v-model="origin">
+        <span>二进制：</span>
+        <input type="text" v-model="result">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                origin: 0,
+                result: 0
+            },
+            computed: {},
+            watch: {
+                origin: function(val) {
+                    this.origin = val;
+                    this.result = Number(this.origin).toString(2);
+                },
+                // result: function(val) {
+                //     this.result = val;
+                //     this.origin = parseInt(this.result, 2);
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

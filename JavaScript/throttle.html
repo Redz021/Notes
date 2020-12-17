@@ -10,34 +10,19 @@
 <body>
     <button id="test">throttle</button>
     <script>
-        function throttle(callback, duration) {
-            var lastTime = new Date().getTime();
+        function throttle(func, duration) {
+            let lastTime = new Date().getTime();
             return function() {
-                var now = new Date().getTime();
-                if (now - lastTime > 500) {
-                    callback();
-                    lastTime = now;
-                }
-
-            }
-        }
-        document.getElementById("test").onclick = throttle(function() {
-            console.log("clicked");
-        }, 500);
-
-        function throttle(callback, duration) {
-            var lastTime = new Date().getTime();
-            return function() {
-                var now = new Date().getTime();
+                let now = new Date().getTime();
                 if (now - lastTime > duration) {
-                    callback();
+                    func();
                     lastTime = now;
                 }
             }
         }
         document.querySelector("#test").onclick = throttle(function() {
-            console.log("clicked");
-        }, 1000);
+            console.log('oooooooo')
+        }, 500);
     </script>
 </body>
 

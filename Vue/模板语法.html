@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>插值</h2>
+        <h3>文本</h3>
+        <h4>使用Mustache语法</h4>
+        <span>Message:{{message}}</span>
+        <h4>一次性插值：v-once</h4>
+        <span v-once>一次性：{{message}}</span>
+        <button @click="change">change</button>
+        <h3>原始HTML</h3>
+        <h4>使用v-html</h4>
+        <p>使用Mustache：{{rawHTML}}</p>
+        <p>使用v-html：<span v-html="rawHTML"></span></p>
+        <h3>属性</h3>
+        <h4>使用v-bind</h4>
+        <button :disabled="isButtonDisabled">Button</button>
+        <button @click="switchOn">开关</button>
+        <h3>JavaScript表达式</h3>
+        <span>{{message.split('').reverse().join('')}}</span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "Hello World",
+                rawHTML: "<button>test</button>",
+                isButtonDisabled: true,
+                switchOn: function() {
+                    app.isButtonDisabled = !app.isButtonDisabled;
+                },
+                change: function() {
+                    console.log(this);
+                    app.message = "123456789";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

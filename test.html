@@ -8,55 +8,39 @@
 </head>
 
 <body>
+    <div id="app">
+        <select name="" id="" v-model="province">
+            <option value="">请选择</option>
+            <option v-for="(key, value) in cities" :value="value">{{value}}</option>
+        </select>
+        <select name="" id="" v-model="city">
+            <option value="">请选择</option>
+            <option v-for="city in cities[province]" :value="city">{{city}}</option>
+        </select>
+        <div v-if="province">
+            <span>{{province}},{{city}}</span>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        var data = [
-            [{
-                name: "111",
-                num: 1
-            }, {
-                name: "111",
-                num: 1
-            }, {
-                name: "111",
-                num: 1
-            }],
-            [{
-                name: "222",
-                num: 2
-            }, {
-                name: "222",
-                num: 2
-            }, {
-                name: "222",
-                num: 2
-            }],
-            [{
-                name: "333",
-                num: 3
-            }, {
-                name: "333",
-                num: 3
-            }, {
-                name: "333",
-                num: 3
-            }]
-        ]
-        let res = {};
-        for (let key in data[0][0]) {
-            res[key] = [];
-        }
-        console.log(res);
-        data.forEach((item, index, arr) => {
-            item.forEach((item1, index1, arr1) => {
-                for (let key in item1) {
-                    res[key].push(item1[key]);
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                test: true,
+                cities: {
+                    '河北省': ['石家庄市', '唐山市', '秦皇岛市', '邯郸市', '邢台市', '保定市', '张家口市', '承德市', '沧州市', '廊坊市', '衡水市'],
+                    '辽宁省': ['沈阳市', '大连市', '鞍山市', '抚顺市', '本溪市', '丹东市', '锦州市', '营口市', '阜新市', '辽阳市', '盘锦市', '铁岭市', '朝阳市', '葫芦岛市']
+                },
+                province: "",
+                city: ""
+            },
+            watch: {
+                province: function(val) {
+                    this.province = val;
+                    this.city = "";
                 }
-            })
+            }
         })
-        console.log(res);
-
-        //name = [["111","111","111"],["111","111","111"],["111","111","111"]];
-        //num = [[1,1,1],[1,1,1],[1,1,1]];
     </script>
 </body>
 
