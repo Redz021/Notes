@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>什么是回调函数</h1>
+    <p style="font-size: 20px;font-style: italic;">回调函数是作为参数传给另一个函数的函数，然后通过在外部函数内部调用该回调函数以完成某种操作。</p>
+    <p>回调函数是一个函数，将会在另一个函数执行完后立即执行。回调函数是一个作为参数传给另一个JavaScript函数的函数。这个回调函数会在传给的函数内部执行。</p>
+    <p>在JavaScript中函数被看做是一类对象。对于一类对象，我们的意思是指数字、函数或变量可以与语言中的其他实体相同。作为一类对象，可以将函数作为变量传给其他函数，也可以从其他函数中返回这些函数。</p>
+    <p>可以执行这种操作的函数被称为高阶函数。回调函数实际上是一种模式。“模式”一词表示可以解决软件开发中常见问题的某种行之有效的方法。最好将回调函数作为回调模式去使用。</p>
+    <h1>为什么使用回调函数</h1>
+    <p>客户端JavaScript在浏览器中运行，并且浏览器的主进程是<b>单线程</b>事件循环。如果我们尝试在单线程时间循环中执行长时间运行的操作，则会阻止该过程。从技术上讲这是不好的，因为过程在等待操作完成时会停止处理其他事件。</p>
+    <script>
+        //例
+        // function getMessage() {
+        //     console.log("Got message");
+        // }
+
+        // function displayMessage() {
+        //     console.log("Displayed message");
+        // }
+        // getMessage();
+        // displayMessage();
+        //按顺序执行
+        ///////////////////////////////////////////////
+        //使用回调函数
+        //修改后
+        function getMessage(msg, callback) {
+            setTimeout(function() {
+                console.log(msg);
+                callback();
+            }, 200);
+        }
+
+        function displayMessage() {
+            console.log("Displayed message");
+        }
+        getMessage("Hi, there", displayMessage);
+        //
+    </script>
+</body>
+
+</html>
