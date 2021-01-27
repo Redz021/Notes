@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Colorpoint extends Point {
+            constructor(x, y, color) {
+                super(x, y);
+                this.color = color;
+            }
+            toString() {
+                return this.color + ' ' + super.toString();
+            }
+        }
+    </script>
+</body>
+
+</html>

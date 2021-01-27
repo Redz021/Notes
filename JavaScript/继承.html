@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //原型式继承 利用原型链
+        ////创建一个Person类，所有方法都定义在构造器的原型上
+        function Person(first, last, age, gender, interests) {
+            this.name = {
+                first,
+                last
+            };
+            this.age = age;
+            this.gender = gender;
+            this.interests = interests;
+        };
+        Person.prototype.greeting = function() {
+            alert('Hi I\'m ' + this.name.first + '.');
+        };
+        ////比如想要创建一个Teacher类，继承Person类的所有成员
+        ////同时包括1. 一个新的属性，subject——教授的学科
+        ///////////2. 一个被更新的greeting()方法
+        function Teacher(first, last, age, gender, interests, subject) {
+            Person.call(this, first, last, age, gender, interests);
+            this.subject = subject;
+        };
+        //使用create()创建一个和Person.prototype一样的新的原型属性值（这个属性值指向一个包括属性和方法的对象）
+        //然后将其作为Teacher.prototype的属性值。
+        //这意味着Teacher.prototype现在会继承Person.prototype的所有属性和方法。
+        Teacher.prototype = Object.create(Person.prototype);
+        //将Teacher()的prototype的constructor指向Teacher
+        Teacher.prototype.constructor = Teacher;
+        //加入greeting()方法
+        Teacher.prototype.greeting = function() {
+            let prefix;
+            if (this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+                prefix = 'Mr.';
+            } else if (this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+                prefix = 'Mrs.';
+            } else {
+                prefix = 'Mx.';
+            }
+            alert('Hello. My name is ' + prefix + ' ' + this.name.last + ', and I teach ' + this.subject + '.');
+        }
+    </script>
+</body>
+
+</html>
