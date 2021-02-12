@@ -4,7 +4,7 @@ var _vue = _interopRequireDefault(require("vue"));
 
 var _App = _interopRequireDefault(require("./App.vue"));
 
-var _router = _interopRequireDefault(require("./routers/router.js"));
+var _router = _interopRequireDefault(require("./router.js"));
 
 var _elementUi = _interopRequireDefault(require("element-ui"));
 

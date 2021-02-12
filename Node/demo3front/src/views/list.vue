@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <h4>欢迎，{{ username }}</h4>
+    <a href="javascript:void(0)" @click="logout">注销</a>
     <div class="header">
       <el-form ref="form" label-width="80px">
         <div class="item">
@@ -46,6 +48,14 @@
           </template>
         </el-table-column>
       </el-table>
+    </div>
+    <div>
+      <el-pagination 
+        @current-change="handleCurrentChange"
+        :pageSize="pageSize"
+        :currentPage.sync="curPage"
+        layout="prev, pager, next, jumper"
+        :total="totalCount"></el-pagination>
     </div>
     <el-dialog title="新增" :visible.sync="dialogVisible" width="30%">
       <el-form label-width="40px">
@@ -149,13 +159,35 @@ export default {
       dialogVisible2: false,
       dialogVisible3: false,
       row: null,
-      uid: ""
+      uid: "",
+      username: '',
+      pageSize: 2,
+      curPage: 1,
+      totalCount: 0
     };
   },
   created() {
+    this.userSession()
     this.query();
   },
   methods: {
+    userSession(){
+      this.axios.post('/user/usersession',{})
+      .then(res => {
+        console.log(res)
+        if(res.data.code === 1 && res.data.session){
+          this.username = ''
+          this.$router.push({
+            path: '/login'
+          })
+        }else{
+          this.username = res.data.data.username
+        }
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    },
     setData(datas) {
       if (datas.length > 0) {
         for (let i = 0; i < datas.length; i++) {
@@ -168,23 +200,27 @@ export default {
       }
       return datas;
     },
-    query(isquery) {
+    query(curPage, isquery) {
       const obj = {
         name: this.name,
         age: this.age,
-        sex: this.sex
+        sex: this.sex,
+        pageSize: this.pageSize,
+        curPage: curPage
       };
-      this.$http
-        .post("http://localhost:3000/api/query", obj)
+      this.axios
+        .post("/user/query", obj)
         .then(res => {
-          console.log(res);
-          this.tableData = res.data ? this.setData(res.data) : [];
+          console.log(res.data);
+          this.tableData = res.data.data ? this.setData(res.data.data) : [];
           if (isquery) {
             this.$message({
               message: "查询成功",
               type: "success"
             });
           }
+          this.totalCount = res.pager?res.pager.totalCount:0
+          this.curPage = res.pager?res.pager.curPage:1
         })
         .catch(err => {
           console.error(err);
@@ -195,13 +231,15 @@ export default {
             });
           }
           this.tableData = [];
+          this.totalCount = 0
+          this.curPage = 1
         });
     },
     newAdd() {
       this.dialogVisible = true;
     },
     editFunc(row) {
-      console.log(row)
+      console.log(row);
       this.dialogVisible2 = true;
       this.uid = row._id;
       this.$set(this.$data.update, "name", row.name);
@@ -223,8 +261,8 @@ export default {
         age: age,
         sex: sex
       };
-      this.$http
-        .post("http://localhost:3000/api/update", obj)
+      this.axios
+        .post("http://localhost:3000/user/update", obj)
         .then(res => {
           console.log(res);
           this.$message({
@@ -247,8 +285,8 @@ export default {
         id: this.row._id
       };
       console.log(obj);
-      this.$http
-        .post("http://localhost:3000/api/del", obj)
+      this.axios
+        .post("http://localhost:3000/user/del", obj)
         .then(res => {
           console.log(res);
           this.$message = {
@@ -272,8 +310,8 @@ export default {
         age: this.add.age,
         sex: this.add.sex
       };
-      this.$http
-        .post("http://localhost:3000/api/add", obj)
+      this.axios
+        .post("http://localhost:3000/user/add", obj)
         .then(res => {
           console.log(res);
           this.$message = {
@@ -290,6 +328,27 @@ export default {
           });
         });
       this.dialogVisible = false;
+    },
+    logout(){
+      this.axios.post('/regLogin/logout',{})
+      .then(res => {
+        console.log(res)
+        this.$message({
+          message: '注销成功',
+          type: 'success'
+        })
+        setTimeout(()=>{
+          this.$router.push({
+            path:'/login'
+          },1000)
+        })
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    },
+    handleCurrentChange(page){
+      this.query(page, false)
     }
   }
 };
