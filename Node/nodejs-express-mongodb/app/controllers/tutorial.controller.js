@@ -125,7 +125,7 @@ exports.deleteAll = (req, res) => {
 }
 
 exports.findAllPublished = (req, res) => {
-    Tutorial.fund({
+    Tutorial.find({
             published: true
         })
         .then(data => {

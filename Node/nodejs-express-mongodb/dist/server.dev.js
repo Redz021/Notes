@@ -11,7 +11,7 @@ var cors = require('cors'); //支持多种选项开启CORS的express中间件
 
 var app = express();
 var corsOptions = {
-  origin: 'http://localhost:8081'
+  origin: 'http://localhost:8080'
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -38,7 +38,9 @@ app.get('/', function (req, res) {
 
 require('./app/routes/tutorial.routes')(app);
 
-var PORT = process.env.PORT || 8080;
+require('./app/routes/user.routes')(app);
+
+var PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
   console.log("Server is running on port ".concat(PORT));
 });

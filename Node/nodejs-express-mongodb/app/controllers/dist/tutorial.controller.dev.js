@@ -124,7 +124,7 @@ exports.deleteAll = function (req, res) {
 };
 
 exports.findAllPublished = function (req, res) {
-  Tutorial.fund({
+  Tutorial.find({
     published: true
   }).then(function (data) {
     res.send(data);
