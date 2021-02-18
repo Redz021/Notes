@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <!-- <router-link to="/tutorials">tutorials</router-link>
+    <router-link to="/add">add</router-link>
     <el-header>
       <el-menu
             mode="horizontal"
@@ -21,7 +23,10 @@
       <div style="width: 100%;padding: 2%;">
           <router-view></router-view>
       </div>
-    </el-container>
+    </el-container> -->
+    <div>
+      <router-view/>
+    </div>
   </div>
 </template>
 
