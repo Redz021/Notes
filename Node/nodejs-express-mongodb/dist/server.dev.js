@@ -1,17 +1,17 @@
 "use strict";
 
-var express = require('express'); //为rest api建立express应用
+var express = require("express"); //为rest api建立express应用
 
 
-var bodyParser = require('body-parser'); //解析请求，生成req.body对象
+var bodyParser = require("body-parser"); //解析请求，生成req.body对象
 
 
-var cors = require('cors'); //支持多种选项开启CORS的express中间件
+var cors = require("cors"); //支持多种选项开启CORS的express中间件
 
 
 var app = express();
 var corsOptions = {
-  origin: 'http://localhost:8080'
+  origin: "http://localhost:8080"
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -19,26 +19,26 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); //链接mongodb
 
-var db = require('./app/models');
+var db = require("./app/models");
 
 db.mongoose.connect(db.url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(function () {
-  console.log('Connected to the database.');
+  console.log("Connected to the database.");
 })["catch"](function (err) {
-  console.log('Cannot connect to the database.', err);
+  console.log("Cannot connect to the database.", err);
   process.exit();
 });
-app.get('/', function (req, res) {
+app.get("/", function (req, res) {
   res.json({
-    message: 'Welcome!'
+    message: "Welcome!"
   });
 });
 
-require('./app/routes/tutorial.routes')(app);
+require("./app/routes/tutorial.routes")(app);
 
-require('./app/routes/user.routes')(app);
+require("./app/routes/user.routes")(app);
 
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {

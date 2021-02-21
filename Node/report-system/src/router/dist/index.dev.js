@@ -25,6 +25,17 @@ _vue["default"].use(_vueRouter["default"]);
 
 var routes = [{
   path: "/",
+  redirect: "/login"
+}, {
+  path: "/login",
+  name: "Login",
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require("@/views/Login.vue"));
+    });
+  }
+}, {
+  path: "/home",
   name: "Home",
   component: _Home["default"],
   meta: {
@@ -45,11 +56,11 @@ var routes = [{
     requireAuth: true
   }
 }, {
-  path: '/login',
-  name: 'Login',
+  path: "/login",
+  name: "Login",
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/Login.vue'));
+      return _interopRequireWildcard(require("../views/Login.vue"));
     });
   }
 }];
@@ -65,7 +76,7 @@ router.beforeEach(function (to, from, next) {
     var isLogin = _store["default"].state.isLogin;
 
     if (!isLogin) {
-      router.push('/login');
+      router.push("/login");
     } else {
       next();
     }

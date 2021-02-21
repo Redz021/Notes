@@ -6,11 +6,21 @@ Vue.use(VueRouter);
 
 const routes = [{
         path: "/",
+        redirect: "/login",
+    },
+    {
+        path: "/login",
+        name: "Login",
+        component: () =>
+            import ("@/views/Login.vue"),
+    },
+    {
+        path: "/home",
         name: "Home",
         component: Home,
         meta: {
-            requireAuth: true
-        }
+            requireAuth: true,
+        },
     },
     {
         path: "/about",
@@ -21,36 +31,37 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ "../views/About.vue"),
         meta: {
-            requireAuth: true
-        }
-    }, {
-        path: '/login',
-        name: 'Login',
+            requireAuth: true,
+        },
+    },
+    {
+        path: "/login",
+        name: "Login",
         component: () =>
-            import ('../views/Login.vue')
-    }
+            import ("../views/Login.vue"),
+    },
 ];
 
 const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
-    routes
+    routes,
 });
 
-import store from '../store'
+import store from "../store";
 
 router.beforeEach((to, from, next) => {
-    console.log(store.state.isLogin)
+    console.log(store.state.isLogin);
     if (to.meta.requireAuth) {
-        let isLogin = store.state.isLogin
+        let isLogin = store.state.isLogin;
         if (!isLogin) {
-            router.push('/login')
+            router.push("/login");
         } else {
-            next()
+            next();
         }
     } else {
-        next()
+        next();
     }
-})
+});
 
 export default router;

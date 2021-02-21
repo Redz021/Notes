@@ -1,28 +1,12 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header>
-        <el-menu :default-active="activeIndex" router mode="horizontal">
-          <el-menu-item index="/">Home</el-menu-item>
-          <el-menu-item index="/about">About</el-menu-item>
-        </el-menu>
-      </el-header>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
-    </el-container>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 export default {
   name: "app",
-  data() {
-    return {
-      activeIndex: "/",
-    };
-  },
-  created: {},
-  components: {},
+  components: {}
 };
 </script>
 <style>
