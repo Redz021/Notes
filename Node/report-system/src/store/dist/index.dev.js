@@ -15,9 +15,22 @@ _vue["default"].use(_vuex["default"]);
 
 var _default = new _vuex["default"].Store({
   state: {
-    isLogin: false
+    isLogin: false,
+    token: '',
+    user: {}
   },
-  mutations: {},
+  mutations: {
+    login: function login(state, payload) {
+      state.isLogin = payload.stat;
+      state.token = payload.data.token;
+      state.user = payload.data.user;
+    },
+    logout: function logout(state) {
+      state.isLogin = false;
+      state.token = '';
+      state.user = {};
+    }
+  },
   actions: {},
   modules: {}
 });

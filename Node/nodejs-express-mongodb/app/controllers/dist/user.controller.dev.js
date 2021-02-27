@@ -6,6 +6,10 @@ var db = require('../models'); // const crypto = require('crypto')
 var _require = require('../models'),
     users = _require.users;
 
+var config = require('../config/config');
+
+var jwt = require('jsonwebtoken');
+
 var User = db.users;
 module.exports = {
   test: function test(req, res) {
@@ -25,7 +29,8 @@ module.exports = {
     var user = new User({
       studyNum: req.body.studyNum,
       username: req.body.username,
-      password: req.body.password
+      password: req.body.password,
+      type: req.body.type
     }); //保存到数据库
 
     user.save(user).then(function (data) {
@@ -59,7 +64,17 @@ module.exports = {
             msg: '用户名或密码错误'
           });
         } else {
-          res.send(doc);
+          var token = jwt.sign({
+            id: doc.id,
+            username: doc.username,
+            type: doc.type
+          }, config.secretKey, {
+            expiresIn: '60s'
+          });
+          res.send({
+            token: token,
+            user: doc
+          });
         }
       });
     }

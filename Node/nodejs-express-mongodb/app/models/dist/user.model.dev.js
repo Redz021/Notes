@@ -11,7 +11,8 @@ module.exports = function (mongoose) {
   var schema = mongoose.Schema({
     studyNum: String,
     username: String,
-    password: String
+    password: String,
+    type: String
   }, {
     timestamps: true
   });

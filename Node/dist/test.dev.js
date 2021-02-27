@@ -9,7 +9,9 @@ var _vue = _interopRequireDefault(require("vue"));
 
 var _vueRouter = _interopRequireDefault(require("vue-router"));
 
-var _userDataService = _interopRequireDefault(require("../services/userDataService"));
+var _Home = _interopRequireDefault(require("../views/Home.vue"));
+
+var _store = _interopRequireDefault(require("./test/src/store"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -33,61 +35,34 @@ var routes = [{
     });
   }
 }, {
-  path: '/student',
-  name: 'studentIndex',
-  component: function component() {
-    return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/student/studentIndex.vue'));
-    });
-  },
+  path: '/home',
+  name: 'Home',
+  component: _Home["default"],
   meta: {
     requireAuth: true
-  },
-  children: [{
-    path: 'courses',
-    name: 'studentCourses',
-    component: function component() {
-      return Promise.resolve().then(function () {
-        return _interopRequireWildcard(require('../views/student/studentCourses.vue'));
-      });
-    }
-  }, {
-    path: 'reports',
-    name: 'studentReports',
-    component: function component() {
-      return Promise.resolve().then(function () {
-        return _interopRequireWildcard(require('../views/student/studentReports.vue'));
-      });
-    }
-  }]
+  }
 }, {
-  path: '/teacher',
-  name: 'teacherIndex',
+  path: '/about',
+  name: 'About',
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
   component: function component() {
     return Promise.resolve().then(function () {
-      return _interopRequireWildcard(require('../views/teacher/teacherIndex.vue'));
+      return _interopRequireWildcard(require('../views/About.vue'));
     });
   },
   meta: {
     requireAuth: true
-  },
-  children: [{
-    path: 'courses',
-    name: 'teacherCourses',
-    component: function component() {
-      return Promise.resolve().then(function () {
-        return _interopRequireWildcard(require('../views/teacher/teacherCourses.vue'));
-      });
-    }
-  }, {
-    path: 'reports',
-    name: 'teacherReports',
-    component: function component() {
-      return Promise.resolve().then(function () {
-        return _interopRequireWildcard(require('../views/teacher/teacherReports.vue'));
-      });
-    }
-  }]
+  }
+}, {
+  path: '/login',
+  name: 'Login',
+  component: function component() {
+    return Promise.resolve().then(function () {
+      return _interopRequireWildcard(require('../views/Login.vue'));
+    });
+  }
 }];
 var router = new _vueRouter["default"]({
   mode: 'history',
@@ -95,21 +70,16 @@ var router = new _vueRouter["default"]({
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
-  // console.log(store.state);
+  console.log(_store["default"].state.isLogin);
+
   if (to.meta.requireAuth) {
-    var stat = -1;
+    var isLogin = _store["default"].state.isLogin;
 
-    _userDataService["default"].validate().then(function (res) {
-      stat = res.data.code;
-
-      if (stat == 0) {
-        router.push('/login');
-      } else {
-        next();
-      }
-    })["catch"](function (err) {
-      console.error(err);
-    });
+    if (!isLogin) {
+      router.push('/login');
+    } else {
+      next();
+    }
   } else {
     next();
   }
