@@ -3,8 +3,12 @@ const join = (a, b, c) => {
 }
 
 function curry(fn) {
-  return (a, b, c) => {
-    return fn(a, b, c)
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args)
+    } else {
+      return curried.bind(this, ...args)
+    }
   }
 }
 

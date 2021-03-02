@@ -5,8 +5,16 @@ var join = function join(a, b, c) {
 };
 
 function curry(fn) {
-  return function (a, b, c) {
-    return fn(a, b, c);
+  return function curried() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    } else {
+      return curried.bind.apply(curried, [this].concat(args));
+    }
   };
 }
 
