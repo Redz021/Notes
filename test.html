@@ -1,47 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-
-<body>
-    <div id="app">
-        <select name="" id="" v-model="province">
-            <option value="">请选择</option>
-            <option v-for="(key, value) in cities" :value="value">{{value}}</option>
-        </select>
-        <select name="" id="" v-model="city">
-            <option value="">请选择</option>
-            <option v-for="city in cities[province]" :value="city">{{city}}</option>
-        </select>
-        <div v-if="province">
-            <span>{{province}},{{city}}</span>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      #e {
+        width: 100px;
+        height: 100px;
+        background: rgba(253, 50, 90, 1);
+        position: absolute;
+        left: 0;
+        top: 0;
+        zoom: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="e"></div>
     <script>
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                test: true,
-                cities: {
-                    '河北省': ['石家庄市', '唐山市', '秦皇岛市', '邯郸市', '邢台市', '保定市', '张家口市', '承德市', '沧州市', '廊坊市', '衡水市'],
-                    '辽宁省': ['沈阳市', '大连市', '鞍山市', '抚顺市', '本溪市', '丹东市', '锦州市', '营口市', '阜新市', '辽阳市', '盘锦市', '铁岭市', '朝阳市', '葫芦岛市']
-                },
-                province: "",
-                city: ""
-            },
-            watch: {
-                province: function(val) {
-                    this.province = val;
-                    this.city = "";
-                }
-            }
-        })
+      let e = document.getElementById('e')
+      let flag = true
+      let left = 0
+      let alpha = 1
+      function render() {
+        if (flag) {
+          if (left >= 100) {
+            flag = false
+          }
+          e.style.left = `${left++}px`
+          e.style.top = `${left}px`
+          e.style.background = `rgba(253,50,90,${(alpha -= 0.01)})`
+        } else {
+          if (left <= 0) {
+            flag = true
+          }
+          e.style.left = `${left--}px`
+          e.style.top = `${left}px`
+          e.style.background = `rgba(253,50,90,${(alpha += 0.01)})`
+        }
+      }
+      // setInterval(render, 1000 / 60)
+      function animloop() {
+        render()
+        window.requestAnimationFrame(animloop)
+      }
+      window.requestAnimationFrame(animloop)
     </script>
-</body>
-
+  </body>
 </html>

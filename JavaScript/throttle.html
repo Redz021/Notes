@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>throttle</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <button id="test">throttle</button>
+    <div id="result"></div>
     <script>
-        function throttle(func, duration) {
-            let lastTime = new Date().getTime();
-            return function() {
-                let now = new Date().getTime();
-                if (now - lastTime > duration) {
-                    func();
-                    lastTime = now;
-                }
-            }
+      function throttle(func, duration) {
+        let lastTime = new Date().getTime()
+        return () => {
+          let now = new Date().getTime()
+          if (now - lastTime > duration) {
+            func()
+            lastTime = now
+          }
         }
-        document.querySelector("#test").onclick = throttle(function() {
-            console.log('oooooooo')
-        }, 500);
+      }
+      test.onclick = throttle(() => {
+        result.innerHTML += 'Clicked<br>'
+      }, 1000)
     </script>
-</body>
-
+  </body>
 </html>

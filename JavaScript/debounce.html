@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>debounce</title>
-</head>
+  </head>
 
-<body>
-    <button id="test">debounce</button>
+  <body>
+    <!-- <button id="test">debounce</button> -->
+    <input type="text" id="test" />
+    <div id="result"></div>
     <script>
-        function debounce(func, delay) {
-            let t = null;
-            return function() {
-                clearTimeout(t);
-                t = setTimeout(func, delay);
-            }
+      function debounce(func, delay) {
+        let timer = null
+        return () => {
+          clearTimeout(timer)
+          timer = setTimeout(func, delay)
         }
-        document.querySelector("#test").onclick = debounce(function() {
-            console.log("oooooooooooooooo");
-        }, 500);
+      }
+      test.oninput = debounce(() => {
+        result.innerHTML = test.value
+      }, 1000)
     </script>
-</body>
-
+  </body>
 </html>

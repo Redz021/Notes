@@ -1,11 +1,11 @@
 # 原型
 
-## \__proto__
+## \_\_proto\_\_
 
-ES5中**[[Prototype]]**在Chrome中的实现。目前所有浏览器均已部署。
+**[[Prototype]]**在Chrome中的实现。目前所有浏览器均已部署。
 
-1. \__proto__和constructor属性是**对象**独有的。
-2. prototype属性是函数独有的，但在JavaScript中函数也是对象，所以函数也有\__proto__和constructor属性。
+1. \_\_proto\_\_和constructor属性是**对象**独有的。
+2. prototype属性是函数独有的，但在JavaScript中函数也是对象，所以函数也有\_\_proto\_\_和constructor属性。
 
 \_\_proto\_\_属性指向一个对象的原型对象，在访问一个对象的属性时，如果该对象内部不存在这个属性，就会去它的\_\_proto\_\_属性所指的对象中查找，如不存在，则重复这个过程，直到原型链顶端null为止。
 
@@ -312,6 +312,10 @@ MyClass.prototype.myMethod = function() {
 
 **比较相等性之前，不能将 null 和 undefined 转换成其他任何值**，并且规定null 和 undefined 是相等的。
 
+# 类型转换
+
+只有"", NaN, undefined, null, +0, -0转换为Boolean时为false。
+
 # 深复制、浅复制
 
 ## 浅复制
@@ -408,7 +412,48 @@ console.log(originArray); // [1,[1,2,3,4],{a:2}]
 
 concat只会对数组的第一层进行深复制。
 
+### slice()
 
+```javascript
+const originArray = [1,[1,2,3],{a:1}];
+const cloneArray = originArray.slice();
+console.log(cloneArray === originArray); // false
+cloneArray[1].push(4);
+cloneArray[2].a = 2; 
+console.log(originArray); // [1,[1,2,3,4],{a:2}]
+```
+
+与concat()一样，对数组的第一层进行深复制。
+
+### Object.assign()
+
+拷贝属性值，若源对象的属性值是一个指向对象的引用，则只复制引用值。
+
+### ...扩展运算符
+
+```javascript
+const originArray = [1,2,3,4,5,[6,7,8]];
+const originObj = {a:1,b:{bb:1}};
+ 
+const cloneArray = [...originArray];
+cloneArray[0] = 0;
+cloneArray[5].push(9);
+console.log(originArray); // [1,2,3,4,5,[6,7,8,9]]
+ 
+const cloneObj = {...originObj};
+cloneObj.a = 2;
+cloneObj.b.bb = 2;
+console.log(originObj); // {a:1,b:{bb:2}}
+```
+
+只对第一层进行深复制。
+
+## 总结
+
+1. 赋值运算符 = 实现的是浅拷贝，只拷贝对象的引用值；
+2. JavaScript 中数组和对象自带的拷贝方法都是“首层浅拷贝”；
+3. JSON.stringify 实现的是深拷贝，但是对目标对象有要求；
+4. 若想真正意义上的深拷贝，请递归。
 
 # 继承方式
 
@@ -479,7 +524,7 @@ foo()
 
 函数和变量相比，会被优先提升。这意味着函数会被提升到更靠前的位置。
 
-（个人理解：提升后同名的函数和变量，函数优先级更高，大概可理解为函数表达式？）
+（个人理解：提升后同名的函数和变量，函数优先级更高，无论顺序，函数总会覆盖变量）
 
 例：
 
@@ -494,8 +539,8 @@ function foo(){
 foo()
 //实际上
 function foo(){
-    function a(){}
     var a
+    function a(){}
     console.log(a) //a()
     a = 1
     console.log(a) //1
@@ -504,7 +549,8 @@ function foo(){
 foo()
 //个人感觉这样更合理
 function foo(){
-    var a = function(){}
+    var a
+    a = function(){}
     console.log(a) //a()
     a = 1
     console.log(a) //1
@@ -529,16 +575,29 @@ var num=foo(1,2);
 解析后为
 
 ```javascript
+var foo
+var num
 function foo(x, y){
     return x + y
 }
-var foo
-var num
 foo = function(x, y){
     return x - y
 }
 num = foo(1, 2)
 ```
+
+# 闭包
+
+闭包就是能够读取其他函数内部变量的函数。
+
+用途：让变量的值始终保持在内存中。
+
+**注意**
+
+1. 由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+2. 闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
+
+# 作用域
 
 
 
@@ -565,3 +624,12 @@ num = foo(1, 2)
 - MutationObeserver
 
 JavaScript在执行时，先从宏任务队列开始执行，取出第一个宏任务放入执行栈执行，在执行过程中，如果遇到宏任务，则将该宏任务放入宏任务队列，继续运行执行栈中的后续代码。如果遇到微任务，则将该微任务放入微任务队列，继续向下运行执行栈中的后续代码。当执行栈中的代码全部执行完成后，从微任务队列中取出所有微任务放入执行栈中执行。执行完成后，再从宏任务队列中取出下一个宏任务放入执行栈，不断重复上述过程。这一过程被称为事件循环。
+
+# requestAnimationFrame
+
+requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：
+
+1. requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+
+2. 在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
+
