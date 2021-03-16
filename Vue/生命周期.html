@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 50px;
+        height: 60px;
+        margin: -25px 0 0 -30px;
+        text-align: center;
+        font-size: 10px;
+      }
+      #spinner > div {
+        background-color: #189f93;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+      }
+      #spinner .rect2 {
+        animation-delay: -1.1s;
+      }
+      #spinner .rect3 {
+        animation-delay: -1s;
+      }
+      #spinner .rect4 {
+        animation-delay: -0.9s;
+      }
+      #spinner .rect5 {
+        animation-delay: -0.8;
+      }
+      @keyframes stretchdelay {
+        0%,
+        40%,
+        100% {
+          transform: scaleY(0.4);
+        }
+        20% {
+          transform: scaleY(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+    </div>
+    <div id="app" style="visibility: hidden">
+      <ul>
+        <li v-for="item in students" :key="item.id">
+          学号：{{item.sno}}<br />姓名：{{item.studentName}}
+        </li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      let vm = new Vue({
+        el: '#app',
+        data: {
+          students: [],
+        },
+        beforeCreate() {},
+        created() {
+          axios
+            .get('http://localhost:3000/api/student')
+            .then((res) => {
+              this.students = res.data
+            })
+            .catch((err) => {
+              console.error(err)
+            })
+        },
+        beforeMount() {},
+        mounted() {
+          if (this.students) {
+            document.body.removeChild(document.getElementById('spinner'))
+            document.getElementById('app').style.visibility = 'visible'
+          }
+        },
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let setExpire = function (key, val, duration) {
+        localStorage.setItem(key, val)
+        localStorage.setItem(key + '_expire', new Date().getTime() + duration)
+      }
+      let getExpire = function (key) {
+        if (new Date().getTime() > localStorage.getItem(key + '_expire')) {
+          localStorage.removeItem(key + '_expire')
+          localStorage.removeItem(key)
+          return null
+        } else {
+          return localStorage.getItem(key)
+        }
+      }
+    </script>
+  </body>
+</html>

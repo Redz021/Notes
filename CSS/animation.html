@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        background-color: bisque;
+        animation-name: test;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-delay: 1.5s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+        animation-play-state: paused;
+        animation-fill-mode: none;
+        position: absolute;
+      }
+      div:hover {
+        animation-play-state: running;
+      }
+      @keyframes test {
+        0% {
+          top: 10px;
+          background-color: bisque;
+        }
+        20% {
+          top: 20px;
+          background-color: burlywood;
+        }
+        40% {
+          top: 30px;
+          background-color: coral;
+        }
+        60% {
+          top: 40px;
+          background-color: darkgoldenrod;
+        }
+        80% {
+          top: 50px;
+          background-color: darkorange;
+        }
+        100% {
+          top: 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>animation</h1>
+      animation是一个复合属性，包括：
+      <ul>
+        <li>animation-name：动画名称，默认值none</li>
+        <li>animation-duration：持续时间，默认值0</li>
+        <li>animation-timing-function：事件函数，默认ease</li>
+        <li>animation-delay：延迟时间，默认0</li>
+        <li>animation-iteration-count：循环次数，默认1</li>
+        <li>animation-direction：动画方向，默认normal</li>
+        <li>animation-play-state：播放状态，默认running</li>
+        <li>animation-fill-mode：填充模式，默认none</li>
+      </ul>
+      <h2>关键帧</h2>
+      <p>
+        语法：以@keyframes开头，后面紧跟动画名称animation-name；
+        内部按百分比设定关键帧样式，低于0%和高于100%的值会被忽略；
+        0%和100%若不设置关键帧则按照默认样式;
+      </p>
+    </div>
+  </body>
+</html>

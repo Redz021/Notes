@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .container {
+        height: 600px;
+        position: relative;
+        display: flow-root;
+      }
+      .left {
+        height: 100%;
+        width: 200px;
+        background-color: #f00;
+        float: left;
+      }
+      .right {
+        height: 100%;
+        width: 320px;
+        background-color: #0ff;
+        float: right;
+      }
+      .center {
+        height: 100%;
+        margin-left: 200px;
+        margin-right: 320px;
+        background-color: #eee;
+      }
+      .left2 {
+        height: 100%;
+        width: 350px;
+        background: #ace;
+        position: absolute;
+        left: 0;
+      }
+      .right2 {
+        height: 100%;
+        width: 250px;
+        background: #bdf;
+        position: absolute;
+        right: 0;
+      }
+      .center2 {
+        height: 100%;
+        margin-left: 350px;
+        margin-right: 250px;
+        background: #345;
+      }
+      .container3 {
+        display: flex;
+        height: 400px;
+      }
+      .left3 {
+        width: 230px;
+        background: #32d;
+      }
+      .center3 {
+        flex: 1;
+        background: #123;
+      }
+      .right3 {
+        width: 340px;
+        background: #567;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">左</div>
+      <div class="right">右</div>
+      <div class="center">中</div>
+    </div>
+    <div class="container">
+      <div class="left2">左</div>
+      <div class="right2">右</div>
+      <div class="center2">中</div>
+    </div>
+    <div class="container3">
+      <div class="left3">左</div>
+      <div class="center3">中</div>
+      <div class="right3">右</div>
+    </div>
+  </body>
+</html>

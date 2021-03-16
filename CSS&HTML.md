@@ -54,6 +54,22 @@
 * \<sup> 上标
 * \<u> 下划线
 
+## input新type值
+
+- color：用于指定颜色的控件。
+- date：用于输入日期的控件（年，月，日，不包括时间）。
+- month：用于输入年月的控件，不带时区。
+- week：用于输入一个由星期-年组成的日期，日期不包括时区
+- time：用于输入不含时区的时间控件。
+- datetime：基于UTC时区的日期时间输入控件（时，分，秒及几分之一秒）。
+- datetime-local：用于输入日期时间控件，不包含时区。
+- email：用于应该包含 e-mail 地址的输入域。在提交表单时，会自动验证 email 域的值。
+- number: 用于应该包含数值的输入域。只能输入数字
+- range：用于应该包含一定范围内数字值的输入域。range 类型显示为滑动条。
+- search：用于输入搜索字符串的单行文本字段。换行会被从输入的值中自动移除。
+- tel：用于输入电话号码的控件。在移动端输入会显示数字键盘，PC端无效果
+- url：用于编辑URL的字段。
+
 # CSS
 
 * A, B		选择多个元素
@@ -91,6 +107,10 @@
 
 ## 水平垂直居中
 
+### 绝对定位
+
+使用margin或tranforn
+
 ```css
 #container {
     position: relative;
@@ -106,7 +126,168 @@
     width: 400px;
 	margin-top: -200px;
     margin-left: -200px;
+    /*transform: -50%*/
     background: #f00;
 }
 ```
+
+使用margin: auto
+
+```css
+#container2 {
+    position: relative;
+    background-color: blue;
+    width: 400px;
+    height: 400px;
+}
+#content2 {
+    position: absolute;
+    background-color: cornflowerblue;
+    width: 150px;
+    height: 150px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+```
+
+使用flex
+
+```css
+#container3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    background-color: crimson;
+}
+#content3 {
+    background-color: darkorange;
+    width: 400px;
+    height: 400px;
+}
+```
+
+margin: 0 auto水平居中+transform垂直居中
+
+```css
+#container4 {
+    background-color: darkorchid;
+    width: 500px;
+    height: 300px;
+}
+#content4 {
+    background-color: darkslateblue;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+```
+
+## 两边固定宽度，中间自适应
+
+### 浮动
+
+```html
+<div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center"></div>
+</div>
+```
+
+```css
+.left {
+    width:200px;
+    background-color: #f00;
+    float: left;
+}
+.right {
+    width: 320px;
+    background-color: #0ff;
+    float: right;
+}
+.center {
+    margin-left: 200px;
+    margin-right: 320px;
+    background-color: #eee;
+}
+```
+
+### 绝对定位
+
+```html
+<div class="container">
+    <div class="left2"></div>
+    <div class="right2"></div>
+    <div class="center2"></div>
+</div>
+```
+
+```css
+.left2 {
+    height: 100%;
+    width: 350px;
+    background: #ace;
+    position: absolute;
+    left: 0;
+}
+.right2 {
+    height: 100%;
+    width: 250px;
+    background: #bdf;
+    position: absolute;
+    right: 0;
+}
+.center2 {
+    height: 100%;
+    margin-left: 350px;
+    margin-right: 250px;
+    background: #345;
+}
+```
+
+### flex
+
+```html
+<div class="container3">
+	<div class="left3"></div>
+	<div class="center3"></div>
+	<div class="right3"></div>
+</div>
+```
+
+```css
+.container3 {
+    display: flex;
+    height: 400px;
+}
+.left3 {
+    width: 230px;
+    background: #32d;
+}
+.center3 {
+    flex: 1;
+    background: #123;
+}
+.right3 {
+    width: 340px;
+    background: #567;
+}
+```
+
+## animation与transition的区别
+
+| animation                              | transition                   |
+| -------------------------------------- | ---------------------------- |
+| 配合@keyframes可以不触发事件就触发动画 | 需要配合事件来触发动画       |
+| 可以设置循环次数                       | 只能触发一次                 |
+| 可以结合@keyframes设置每一帧           | 只有开始结束两帧             |
+| 可以设置中间帧的状态                   | 样式的过渡过程，只有开始结束 |
 

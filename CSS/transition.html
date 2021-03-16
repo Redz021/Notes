@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        background-color: darksalmon;
+        transition: padding 1.5s cubic-bezier(0.52, 0.01, 0.57, 0.99) 0s,
+          background-color 1.5s cubic-bezier(0.52, 0.01, 0.57, 0.99) 0s,
+          transform 1.5s cubic-bezier(0.52, 0.01, 0.57, 0.99) 0s;
+        padding: 5px;
+      }
+      div:hover {
+        background-color: crimson;
+        padding: 50px;
+        transform: translate(0%, 20%);
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>transition</h1>
+      <p>transition是复合属性，包括：</p>
+      <ul>
+        <li>transition-property：过渡属性，默认all</li>
+        <li>transition-duration：过渡持续时间，默认0s</li>
+        <li>transition-timing-function：过渡函数，默认ease</li>
+        <li>transition-delay：过渡延迟时间，默认0s</li>
+      </ul>
+      <p>不是所有CSS样式值都可以过渡，只有具有中间值的属性才有过渡效果</p>
+      <ul>
+        <li>颜色：color background-color border-color outline-color</li>
+        <li>位置：background-position left right top bottom</li>
+        <li>
+          长度：
+          <ol>
+            <li>max-height min-height max-width min-width height width</li>
+            <li>border-width margin padding outline-width outline-offset</li>
+            <li>font-size line-height text-indent vertical-align</li>
+            <li>border-spacing letter-spacing word-spacing</li>
+          </ol>
+        </li>
+        <li>数字：opacity visibility z-index font-weight zoom</li>
+        <li>组合：text-shadow transform box-shadow clip</li>
+        <li>其他：gradient</li>
+      </ul>
+    </div>
+  </body>
+</html>
