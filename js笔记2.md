@@ -457,6 +457,53 @@ console.log(originObj); // {a:1,b:{bb:2}}
 
 # 继承方式
 
+## ES5
+
+通过prototype或构造函数机制来实现。
+
+实质上是先创建子类的实例对象，然后再将父类的方法添加到this上(Parent.apply(this))。
+
+```javascript
+function Father(name){
+    this.family = ['father', 'mother', 'daughter']
+    this.name = name
+}
+Father.prototype.getName = function(){
+    return this.name
+}
+function Children(name, age){
+    Father.call(this, name)
+    this.age = age
+}
+function F(){}
+F.prototype = Father.prototype
+Children.prototype = new F()
+let instance = new Children('Lily', 20)
+```
+
+## ES6
+
+实质上是先创建父类的实例对象this(所以必须先调用父类的super()方法)，然后再用子类的构造函数修改this。
+
+```javascript
+class Father {
+    family = ['father', 'mother', 'daughter']
+	constructor(name){
+        this.name = name
+    }
+	getName(){
+        return this.name
+    }
+}
+class Children extends Father{
+    constructor(name, age){
+        super(name)
+        this.age = age
+    }
+}
+let instance = new Children('Lily', 20)
+```
+
 
 
 # 变量提升、函数提升
@@ -609,7 +656,7 @@ num = foo(1, 2)
 
 宏任务
 
-- setTimeOut
+- setTimeout
 - setInterval
 - setImmediate
 - I/O
@@ -632,4 +679,26 @@ requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：
 1. requestAnimationFrame 会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
 
 2. 在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
+
+# 各种循环的对比
+
+## for...in...
+
+忽略break/continue，没有return
+
+## for...of...
+
+和for一样，支持break/continue
+
+## Array.forEach
+
+没有break/continue，没有return，改变原数组的值
+
+## Array.map
+
+返回新数组，不改变原数组的值
+
+## forEach, map可以跳出循环吗？
+
+不支持break/continue，可利用try/catch捕获错误跳出循环
 
