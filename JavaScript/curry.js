@@ -18,15 +18,20 @@ console.log(curriedJoin(1, 2, 3))
 console.log(curriedJoin(1)(2, 3))
 console.log(curriedJoin(1, 2)(3))
 
-function curry2(func, curArgs) {
-  return function () {
-    let args = Array.from(arguments)
-    if (curArgs) {
-      args = args.concat(curArgs)
+function curry2(func, args) {
+  return function (...args2) {
+    innerArgs = [...args2]
+    if (args) {
+      innerArgs = args.concat(innerArgs)
     }
-    if (args.length < func.length) {
-      return curry2(func, args)
+    if (innerArgs.length < func.length) {
+      return curry2(func, innerArgs)
     }
-    return func.apply(null, args)
+    return func.apply(null, innerArgs)
   }
 }
+const curriedJoin2 = curry2(join)
+
+console.log(curriedJoin2(1, 2, 3))
+console.log(curriedJoin2(1)(2, 3))
+console.log(curriedJoin2(1, 2)(3))

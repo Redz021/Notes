@@ -1,18 +1,16 @@
 //add(1)(2)(3)(4)() = 10
 //add(1)() = 1
-function add(...arg) {
-  let sum = [...arg]
-  let temp = function (...arg2) {
-    if (!arg2.length) {
+function add(...args) {
+  let sum = [...args]
+  let temp = function (...innerArgs) {
+    if (!innerArgs.length) {
       return sum.reduce((a, b) => a + b)
     } else {
-      sum = sum.concat(arg2)
+      sum = sum.concat(innerArgs)
       return temp
     }
   }
   return temp
 }
 
-let res = add(1)(2)(3)(4)()
-let res2 = add(1)()
-console.log(res, res2)
+console.log(add(1)(2)(3)())
