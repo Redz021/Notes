@@ -1,3 +1,49 @@
+# Vue的响应式原理
+
+数据驱动视图
+
+Vue经过模板编译，虚拟DOM，patch过程更新视图
+
+Vue2.x使用Object.defineProperty()中的setter和getter，使用观察者模式来实现，如果属性变化会通知相关依赖进行更新操作
+
+Vue3.x改用proxy，因为Proxy可以直接监听对象和数组的变化
+
+# Vue.nextTick()
+
+
+
+# computed和watch的区别
+
+* computed具有缓存功能，只有依赖的数据产生变化时才触发computed
+
+* watcher没有缓存功能，可以监听数据执行回调。
+
+  深度监听对象中的属性时，可以打开deep选项
+
+  immediate可以在组件加载时立即执行回调函数
+
+  watcher支持异步，有newData，oldData两个参数
+
+# data为什么是函数
+
+
+
+# keep-alive作用
+
+可以把一些不常变动的组件或者需要缓存的组件包裹起来，这样可以使组件保存在内存中，而不用重新渲染。
+
+生命周期：
+
+* 初次进入时：created > mounted > activated；退出后触发deactivated
+
+* 再次进入：触发activated；
+
+  事件挂载的方法等，只执行一次的放在mounted中；
+
+  组件每次进入执行的方法放在activated中
+
+
+
 # Vue生命周期
 
 new Vue()创建Vue实例
@@ -286,3 +332,20 @@ Bus；Vuex
 - 跨级通信：
 
 Bus；Vuex；provide / inject API、`$attrs/$listeners`
+
+# vue-router
+
+**路由用于设定访问路径，并将路径和组件映射起来**
+
+前端路由的核心，就在于 —— 改变视图的同时不会向后端发出请求
+
+## hash模式，history模式
+
+最直观的区别就是在url中hash带了一个#
+
+**hash**：地址栏中的#符号
+
+特点：虽然出现在URL中，但不会被包含在HTTP请求中，对后端完全没有影响，改变hash不会重新加载页面
+
+**history**：利用了HTML5 History Interface中新增的pushState()和replaceState()方法，这两个方法用于浏览器的历史记录栈，在当前已有的back、forward、go的基础上，提供了对历史记录进行修改的功能。只是当它们修改时，虽然改变了当前的URL，但浏览器不会立即向后端发送请求
+

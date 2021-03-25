@@ -1,3 +1,25 @@
+# 判断类型
+
+## typeof
+
+可以测试出number, string, boolean, Symbol, undefined, function
+
+对于null、数组、对象测试结果均为**object**
+
+## instanceof
+
+适合用于判断自定义类的实例对象
+
+## Object.prototype.toString
+
+在任何值上调用Object的toString()方法，都会返回一个[object NativeConstructorName]格式的字符串
+
+**不能检测非原生构造函数的构造函数名**
+
+## constructor
+
+undefined和null没有constructor属性，而且constructor的指向是可以改变的
+
 # 原型
 
 ## \_\_proto\_\_
@@ -9,7 +31,7 @@
 
 \_\_proto\_\_属性指向一个对象的原型对象，在访问一个对象的属性时，如果该对象内部不存在这个属性，就会去它的\_\_proto\_\_属性所指的对象中查找，如不存在，则重复这个过程，直到原型链顶端null为止。
 
-ES6不建议不建议使用该属性，使用Object.setPrototyprOf()进行写操作，Object.getPrototypeOf()读，Object.create()生成。
+ES6不建议使用该属性，使用Object.setPrototyprOf()进行写操作，Object.getPrototypeOf()读，Object.create()生成。
 
 ## prototype
 
@@ -702,3 +724,41 @@ requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：
 
 不支持break/continue，可利用try/catch捕获错误跳出循环
 
+# 模块化
+
+模块化就是将变量和函数放入不同的文件中
+
+模块的作用域是私有的， 内部定义的代码只能在当前文件中使用，外部使用需要将此模块暴露出去
+
+## 优势
+
+减少全局变量，避免变量名与函数名冲突，提高代码的复用性和维护性
+
+## CommonJS
+
+node使用的是CommonJS，在使用模块时是运行同步加载的，拷贝模块中的对象
+
+模块可以多次加载，但只会在第一次加载，之后会被缓存，引入的是缓存中的值
+
+引入使用`require('path')`
+
+* 如果是第三方模块，只需要填写模块名
+* 自己定义的模块，需要使用相对路径或者绝对路径
+
+导出使用`exports.xxx`或`module.exports.xxx`或`module.exports = xxx`或`this.xxx`
+
+**无论使用哪种方式，都需要用点语法的形式导出，因为它们是module.exports的指针，重新赋值将会切断关联**
+
+## ES6模块
+
+默认导出`export default`变量或者函数或者对象
+
+默认引入`import name from 'path'`path为相对或绝对路径
+
+导出的名字可以和引入的名字不一致
+
+按需导出`export`需要声明（变量用`const, var, let`，函数用`funciton`）
+
+按需引入`import {变量名或函数名} from 'path'`
+
+全部引入`import * as 自定义名称 from 'path'`
