@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        border: 1px solid deeppink;
+      }
+      #container::after {
+        content: '';
+        height: 0;
+        display: block;
+        clear: both;
+      }
+      .child1 {
+        background-color: darkblue;
+        width: 100px;
+        height: 100px;
+      }
+      .child2 {
+        float: left;
+        background-color: blanchedalmond;
+        width: 60px;
+        height: 60px;
+      }
+      .child3 {
+        float: left;
+        background-color: blueviolet;
+        width: 80px;
+        height: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="child1"></div>
+      <div class="child2"></div>
+      <div class="child3"></div>
+    </div>
+  </body>
+</html>

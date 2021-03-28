@@ -702,13 +702,19 @@ requestAnimationFrame 比起 setTimeout、setInterval的优势主要有两点：
 
 2. 在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的的cpu，gpu和内存使用量。
 
-# 各种循环的对比
+# 各种循环的区别
 
 ## for...in...
+
+遍历所有的可枚举属性，包括原型
+
+更适合对象，不适宜数组
 
 忽略break/continue，没有return
 
 ## for...of...
+
+只能遍历支持iterator的对象
 
 和for一样，支持break/continue
 
@@ -762,3 +768,64 @@ node使用的是CommonJS，在使用模块时是运行同步加载的，拷贝�
 按需引入`import {变量名或函数名} from 'path'`
 
 全部引入`import * as 自定义名称 from 'path'`
+
+# Map和Object区别
+
+## Map
+
+键名可以为任何类型；
+
+可以用`size`获取大小；
+
+键名不会重复；
+
+数据为插入时的顺序；
+
+可迭代；
+
+## Object
+
+键名只能为String, Number, Symbol；
+
+不可获取大小；
+
+数据不按出入顺序排序；
+
+可借助Object.keys(), Object.values(), Object.entries()遍历；
+
+# 箭头函数和普通函数区别
+
+* 箭头函数为匿名函数，没有自己的this，函数内的this为定义时的上下文
+
+  所以不能作为构造函数，不能使用new操作符
+
+* 箭头函数没有arguments，可以使用...args代替
+
+* 箭头函数没有原型
+
+* 箭头函数的this永远指向其上下文的this，无法改变指向
+
+  普通函数的this指向调用它的对象
+
+# bind(), call(), apply()区别
+
+## call(), apply()
+
+功能相同，参数不同
+
+`fn.call(obj, arg1, arg2, ...)`调用一个函数，指定this和分别提供的参数
+
+`fn.apply(obj, [args])`调用一个函数，指定this和参数数组或类数组对象
+
+不传入参数或者传入的参数为null，则默认指向全局对象
+
+绑定后立即执行
+
+## bind()
+
+语法一致
+
+`fn.bind(obj, arg1, arg2, ...)`
+
+fn的this预处理为obj，但fn不执行，调用时才会执行
+

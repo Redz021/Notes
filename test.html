@@ -6,48 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      .container {
-        display: flow-root;
-        position: relative;
-        height: 500px;
-      }
-      .left {
-        position: absolute;
-        left: 0;
-        background-color: aqua;
-        width: 200px;
-        height: 100%;
-      }
-      .right {
-        position: absolute;
-        right: 0;
-        background-color: blueviolet;
-        width: 300px;
-        height: 100%;
-      }
-      .center {
-        margin-left: 200px;
-        margin-right: 300px;
-        background-color: brown;
-        height: 100%;
-      }
-
-      #test::before {
-        background-image: url('/SUTlogo.jpg');
-        content: 'img';
-        color: red;
+      div {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
       }
     </style>
   </head>
   <body>
-    <!-- <div class="container">
-      <div class="left"></div>
-      <div class="right"></div>
-      <div class="center">center</div>
-    </div> -->
-    <span id="test">
-      <!-- <img src="./SUTlogo.jpg" alt="" /> -->
-      <input type="text" />
-    </span>
+    <div style="float: left"></div>
+    <div style="float: right; clear: left"></div>
+    <div style="clear: both"></div>
   </body>
 </html>

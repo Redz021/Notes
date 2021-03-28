@@ -50,11 +50,11 @@ new Vue()创建Vue实例
 
 事件和生命周期钩子初始化
 
-**beforeCreate**：在实例初始化之后，data observer和事件配置之前被调用
+**beforeCreate**：在**实例初始化**之后，data observer和事件配置之前被调用
 
 初始化inject provide state属性
 
-**created**：data已初始化，计算属性，event/watch事件回调，DOM树并未挂载
+**created**：**data已初始化**，计算属性，event/watch事件回调，**DOM树并未挂载**
 
 是否有el属性，无则挂载
 
@@ -64,11 +64,11 @@ new Vue()创建Vue实例
 
 无则编译el对象外层HTML作为模板
 
-**beforeMount**：在挂载前调用，render函数首次被调用生成虚拟DOM
+**beforeMount**：在挂载前调用，render函数首次被调用生成**虚拟DOM**
 
 创建Vue实例下的$el（虚拟）并将其替换为真正的DOM
 
-**mounted**：挂载完成，DOM树已经完成渲染到页面，可以进行DOM操作
+**mounted**：挂载完成，DOM树已经**完成渲染**到页面，**可以进行DOM操作**
 
 mounted之后，循环
 
@@ -349,3 +349,20 @@ Bus；Vuex；provide / inject API、`$attrs/$listeners`
 
 **history**：利用了HTML5 History Interface中新增的pushState()和replaceState()方法，这两个方法用于浏览器的历史记录栈，在当前已有的back、forward、go的基础上，提供了对历史记录进行修改的功能。只是当它们修改时，虽然改变了当前的URL，但浏览器不会立即向后端发送请求
 
+# 样式scoped
+
+当一个style标签拥有scoped属性的时候，它的CSS只用于当前的Vue组件，不会使组件的样式互相污染。
+
+## 原理
+
+通过PostCss
+
+PostCss给组件中的所有DOM添加了独一无二的动态属性，给CSS选择器额外添加一个对应的属性选择器，来选择组件中的DOM，这种做法使得样式只作用于含有该属性的DOM元素内部
+
+## scoped穿透
+
+当引入第三方组件时，需要在局部组件中修改第三方组件库的样式，而又不想去除scoped属性造成组件之间的样式覆盖，可以使用特殊方式穿透scoped
+
+stylus使用>>>
+
+sass和less使用/deep/

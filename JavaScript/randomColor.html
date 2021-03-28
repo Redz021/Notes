@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="target"></div>
+    <script>
+      const DOMList = [
+        { id: 'id1', name: 'name1', color: 'blue', message: 'hello1' },
+        { id: 'id2', name: 'name2', color: 'red', message: 'hello2' },
+        { id: 'id3', name: 'name3', color: 'black', message: 'hello3' },
+        { id: 'id4', name: 'name4', color: 'green', message: 'hello4' },
+        { id: 'id5', name: 'name5', color: 'yellow', message: 'hello5' },
+      ]
+      function renderDOM(list, target) {
+        target = document.getElementById(target)
+        let ul = document.createElement('ul')
+
+        let lis = document.createDocumentFragment()
+        for (let item of list) {
+          let li = document.createElement('li')
+          li.id = item.id
+          li.name = item.name
+          li.style.color = item.color
+          li.innerHTML = item.message
+          lis.appendChild(li)
+        }
+        ul.appendChild(lis)
+        ul.addEventListener('click', function (e) {
+          if (e.target.nodeName.toLowerCase() === 'li') {
+            alert(e.target.innerHTML)
+          }
+        })
+        target.appendChild(ul)
+      }
+      renderDOM(DOMList, 'target')
+    </script>
+  </body>
+</html>

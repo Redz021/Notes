@@ -1,5 +1,13 @@
 # HTML
 
+## 语义化的优点
+
+* 使HTML结构更清晰
+* 使代码的可读性更高
+* 使代码更容易维护
+* 有利于SEO
+* 方便浏览器的解析和移动设备的适配
+
 ## 元数据
 
 含有页面相关信息，帮助软件更好运用和渲染页面
@@ -69,6 +77,12 @@
 - search：用于输入搜索字符串的单行文本字段。换行会被从输入的值中自动移除。
 - tel：用于输入电话号码的控件。在移动端输入会显示数字键盘，PC端无效果
 - url：用于编辑URL的字段。
+
+## img的src为空带来的问题
+
+src会默认缺省为当前页面的url，再次请求
+
+不确定src未来再添加可省略src属性
 
 # CSS
 
@@ -291,25 +305,27 @@ margin: 0 auto水平居中+transform垂直居中
 | 可以结合@keyframes设置每一帧           | 只有开始结束两帧             |
 | 可以设置中间帧的状态                   | 样式的过渡过程，只有开始结束 |
 
-## 百分比%
+## 单位
+
+### 百分比%
 
 * 子元素的宽度、高度是根据父元素宽度、高度计算的
 * 子元素的**padding、margin**无论水平垂直方向都是根据**父元素宽度**计算的
 * border**不可以**使用百分比设置
 
-## em
+### em
 
 * 若当前元素设置了字体大小，那么就相对于当前元素的字体大小
 * 若当前元素没有字体大小，则相对于第一个设置字体大小的祖先元素的字体大小
 * 如果当前元素和祖先元素都没有字体大小，则默认16px
 
-## rem
+### rem
 
 * 除了根元素之外，其他祖先元素的字体大小不会影响rem尺寸
 * 如果根元素设置了字体大小，那么就相当于根元素的字体大小
 * 如果根元素没有设置，默认16px
 
-## vw, vh
+### vw, vh
 
 相对于视口viewport的width和height
 
@@ -419,3 +435,28 @@ margin: 0 auto水平居中+transform垂直居中
    let scale = 1.0 / window.devicePixelRatio;
    let text = `<meta name="viewport" content="width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no">`;
    document.documentElement.style.fontSize = window.innerWidth / 7.5 + "px";
+
+## 清除浮动
+
+### clear
+
+为需要清除浮动的元素添加`clear: both / right / left`
+
+### 空元素
+
+在父元素的结束标签之前加入清除浮动的块级元素
+
+### 伪元素
+
+父元素添加类`.clearfix`
+
+```css
+.clearfix::after {
+    content: '';
+    height: 0;
+    display: block;
+    clear: both;
+}
+```
+
+### BFC
