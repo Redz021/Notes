@@ -407,6 +407,28 @@ console.log(originArray); // {a:{aa:'aa'},b:'b',c:Array[3],d:{dd:'dd'}}
    }
    ```
 
+# 0.1 + 0.2 === 0.3成立吗？
+
+0.30000000000000004
+
+浮点数精度问题
+
+## 如何取得正确结果？
+
+ES6中，提供了`Number.EPSILON`，这个值等于2^-52,
+
+只要判断(0.1+0.2)-0.3 < Number.EPSILON即可
+
+```javascript
+function numbersEqual(a, b) {
+    return Math.abs(a - b) < Number.EPSILON
+}
+let a = 0.1 + 0.2, b = 0.3
+console.log(numbersEqual(a, b)) //true
+```
+
+
+
 ## JavaScript中的复制方法
 
 ### concat()

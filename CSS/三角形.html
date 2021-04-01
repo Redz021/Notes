@@ -13,9 +13,24 @@
         border: 50px solid #fff;
         border-bottom: 50px solid #df1;
       }
+      #container {
+        overflow: hidden;
+        border: 1px solid palevioletred;
+        width: 200px;
+        height: 200px;
+      }
+      .tri {
+        width: 100px;
+        height: 100px;
+        background-color: paleturquoise;
+        transform: translate(-50%, 50%) rotateZ(45deg);
+      }
     </style>
   </head>
   <body>
     <div id="triangle"></div>
+    <div id="container">
+      <div class="tri"></div>
+    </div>
   </body>
 </html>
